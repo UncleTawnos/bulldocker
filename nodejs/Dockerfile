@@ -11,4 +11,5 @@ RUN npm install
 COPY . /srv/app
 
 EXPOSE 8080
-CMD [ "npm", "start" ]
+#CMD [ "npm", "start" ]
+CMD ["bash"]
