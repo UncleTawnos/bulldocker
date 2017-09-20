@@ -1,6 +1,7 @@
 FROM php:7.1-fpm
 ARG TIMEZONE="Europe/Warsaw"
 
+RUN apt-get update && apt-get dist-upgrade
 RUN apt-get update && apt-get install -y \
     openssl git unzip \
     libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev \
