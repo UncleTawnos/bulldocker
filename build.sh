@@ -5,7 +5,7 @@ pushd $(dirname "$0") > /dev/null;
 source config
 HUB="quay.io"
 NAMESPACE="bulldocker"
-REPO=${1};
+REPO=`basename ${1}`
 
 if [[ -z "${REPO}" ]]; then
     echo "Usage $0 repo"
