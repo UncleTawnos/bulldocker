@@ -1,7 +1,9 @@
 FROM php:7.1-fpm
 ARG TIMEZONE="Europe/Warsaw"
 
-RUN apt-get update && apt-get dist-upgrade
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get -y dist-upgrade
 RUN apt-get update && apt-get install -y \
     openssl git unzip \
     libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev \
@@ -39,13 +41,12 @@ RUN apt-get update && apt-get install -y libmagickwand-6.q16-dev --no-install-re
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer --version
 
 # Set timezone
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini
-
-WORKDIR "/srv/app"
+RUN mkdir -p /srv/application
+WORKDIR "/srv/application"
 #RUN usermod -u 1000 www-data
 
 CMD ["php-fpm"]

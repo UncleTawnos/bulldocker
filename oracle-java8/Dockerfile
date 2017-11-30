@@ -13,7 +13,8 @@ RUN apt-get update \
 
 
 # Define working directory.
-WORKDIR /srv/app
+RUN mkdir -p /srv/application
+WORKDIR /srv/application
 
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
