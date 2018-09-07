@@ -12,9 +12,10 @@ RUN apt-get update && apt-get install -y \
 
 
 # Type docker-php-ext-install to see available extensions
-RUN docker-php-ext-install -j$(nproc) iconv mcrypt exif mbstring curl bcmath opcache \
+RUN docker-php-ext-install -j$(nproc) iconv mcrypt exif mbstring curl bcmath \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
     && docker-php-ext-configure intl && docker-php-ext-install -j$(nproc) intl \
     && docker-php-ext-install -j$(nproc) pdo && docker-php-ext-configure pdo_pgsql \
     && docker-php-ext-install -j$(nproc) pdo_mysql pdo_pgsql mysqli \
@@ -26,6 +27,9 @@ RUN apt-get update && apt-get install -y libmagickwand-6.q16-dev --no-install-re
     && pecl install imagick \
     && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
     && rm -rf /var/lib/apt/lists/*
+
+# Copy configuration
+COPY config/opcache.ini /usr/local/etc/php/conf.d/
 
 
 # install xdebug
@@ -50,6 +54,3 @@ WORKDIR "/srv/application"
 #RUN usermod -u 1000 www-data
 
 CMD ["php-fpm"]
-
-
-
