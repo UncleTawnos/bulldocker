@@ -7,8 +7,10 @@ RUN apt-get update && apt-get -y dist-upgrade
 RUN apt-get update && apt-get install -y \
     openssl git unzip \
     libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev \
-    zlib1g-dev libicu-dev libpq-dev libzip-dev libcurl4-gnutls-dev
-
+    zlib1g-dev libicu-dev libpq-dev libzip-dev libcurl4-gnutls-dev \
+    && apt-get clean \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
 
 
 # Type docker-php-ext-install to see available extensions
@@ -26,6 +28,8 @@ RUN apt-get update && apt-get install -y libmagickwand-6.q16-dev --no-install-re
     && ln -s /usr/lib/x86_64-linux-gnu/ImageMagick-6.8.9/bin-Q16/MagickWand-config /usr/bin \
     && pecl install imagick \
     && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
+    && apt-get clean \
+    && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy configuration
