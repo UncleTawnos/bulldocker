@@ -1,12 +1,12 @@
 FROM php:7.1-fpm
-ARG TIMEZONE="Europe/Warsaw"
+ARG TIMEZONE="UTC"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get -y dist-upgrade
 RUN apt-get update && apt-get install -y \
     openssl git unzip \
-    libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev \
+    libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
     zlib1g-dev libicu-dev libpq-dev libzip-dev libcurl4-gnutls-dev \
     && apt-get clean \
     && apt-get autoremove \
@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y libmagickwand-6.q16-dev --no-install-re
 
 # Copy configuration
 COPY config/opcache.ini /usr/local/etc/php/conf.d/
+COPY config/expose.ini /usr/local/etc/php/conf.d/
 
 
 # install xdebug
