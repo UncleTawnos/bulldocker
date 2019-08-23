@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.1.31-fpm
 ARG TIMEZONE="UTC"
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
     zlib1g-dev libicu-dev libpq-dev libzip-dev libcurl4-gnutls-dev \
     && apt-get clean \
-    && apt-get autoremove \
+    && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
 
