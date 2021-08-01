@@ -3,7 +3,7 @@ FROM php:7.4-fpm
 ARG TIMEZONE="UTC"
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y git zip bzip2 libpng-dev libpng-dev libicu-dev \
+RUN apt-get update && apt-get install --no-install-recommends -y git zip bzip2 libpng-dev libpng-dev libicu-dev \
     openssl libjpeg62-turbo-dev libfreetype6-dev libonig-dev libcurl4-gnutls-dev \
     libpq-dev libxpm-dev libvpx-dev libbz2-dev zlib1g-dev libzip-dev gnumeric \
     && apt-get clean \
